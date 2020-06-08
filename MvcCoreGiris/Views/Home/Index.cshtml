@@ -1,8 +1,17 @@
-﻿@{
+﻿@using MvcCoreGiris.Services;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <mesaj kapat-goster="true">Hoşgeldiniz... Şanslı sayınız: @ViewBag.SansliSayi</mesaj>
 </div>
+
+@*şanslı sayı: @(new LuckyNumberService().LuckyNumber)
+    <br/>*@
+@*şanslı sayı: @(ViewBag.lns.LuckyNumber)
+<br />>*@
+
+

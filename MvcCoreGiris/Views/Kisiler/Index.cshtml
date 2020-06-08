@@ -1,24 +1,59 @@
 ﻿@model List<Kisi>
+@inject LuckyNumberService lns
 @{
     ViewData["Title"] = "Kişiler";
 }
 
-<h1>@ViewBag.Title</h1>
+<h1>@ViewBag.Title</h1> 
 
+@*<div>
+    şanslı sayı : @ViewBag.lns.LuckyNumber
+</div>*@
+@if (TempData["mesaj"] != null)
+{
+    <mesaj kapat-goster="false">
+        @TempData["mesaj"]
+    </mesaj>
+  
+}
+@*@Html.ActionLink("Yeni Kişi","Yeni",null,htmlAttributes:new {@class="btn btn-primary"}) BUNUN YERİNE TAGHELPER;*@
+<a asp-action="Yeni" class="btn btn-outline-primary mb-2"><i class="fas fa-plus-circle mr-2"></i>Yeni Kişi</a>
 <table class="table">
     <thead>
-    <tr>
-        <th>Id</th>
-        <th>Kişi Adı</th>
-    </tr>
+        <tr>
+            <th>Id</th>
+            <th>Kişi Adı</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.KisiAd</td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.KisiAd</td>
+                <td>
+                    <a asp-action="Duzenle" asp-route-id="@item.Id" class="btn btn-outline-secondary">Düzenle</a>
+                    <a href="#" onclick="sil(@item.Id,'@item.KisiAd')" class="btn btn-outline-danger">Sil</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<form asp-action="Sil" name="silForm">
+    <input type="hidden" name="id" />
+</form>
+
+<hr/>
+Şanslı Sayı : @lns.LuckyNumber
+@section scripts {
+    <script>
+        function sil(id, kisiAd) {
+            event.preventDefault();
+
+            if (confirm('"' + kisiAd + '" adlı kişiyi silmek istediğinize emin misiniz?')) {
+                document.silForm.elements.id.value = id;
+                document.silForm.submit();
+            }
+        }
+    </script>
+}

@@ -6,25 +6,35 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MvcCoreGiris.Models;
+using MvcCoreGiris.Services;
 
 namespace MvcCoreGiris.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        //private static LuckyNumberService lns=new LuckyNumberService();
+        //bir defa newlenir.Aynı controller da aynı değer farklı kontroller da yeni newlenen değer
 
-        public HomeController(ILogger<HomeController> logger)
+
+        private readonly LuckyNumberService _luckyNumberService;
+        public HomeController(ILogger<HomeController> logger,LuckyNumberService luckyNumberService)
         {
             _logger = logger;
+            _luckyNumberService = luckyNumberService;
         }
-
+            
         public IActionResult Index()
         {
+            //ViewBag.lns = lns;
+
+            ViewBag.SansliSayi = _luckyNumberService.LuckyNumber;
             return View();
         }
 
-        public IActionResult Privacy()
-        {
+        public IActionResult Privacy([FromServices]LuckyNumberService luckyNumberService)
+        {       
+            ViewBag.SansliSayi = luckyNumberService.LuckyNumber;
             return View();
         }
 
