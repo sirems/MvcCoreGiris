@@ -1,6 +1,16 @@
-﻿@using MvcCoreGiris.Services;
+﻿
+@inject MvcCoreGiris.Interfaces.IWeatherService weatherService
 @{
     ViewData["Title"] = "Home Page";
+    string sicaklik;
+    try
+    {
+        sicaklik = weatherService.Temperature("ankara") + "°C";
+    }
+    catch (Exception)
+    {
+        sicaklik = null;
+    }
 }
 
 <div class="text-center">
@@ -9,9 +19,17 @@
     <mesaj kapat-goster="true">Hoşgeldiniz... Şanslı sayınız: @ViewBag.SansliSayi</mesaj>
 </div>
 
+@if (sicaklik != null)
+{
+    <div>Ankara'da Hava Sıcaklığı : @sicaklik</div>
+}
+
+
+
+
 @*şanslı sayı: @(new LuckyNumberService().LuckyNumber)
     <br/>*@
 @*şanslı sayı: @(ViewBag.lns.LuckyNumber)
-<br />>*@
+    <br />>*@
 
 

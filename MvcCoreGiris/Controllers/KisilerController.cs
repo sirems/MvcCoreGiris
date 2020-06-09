@@ -30,7 +30,7 @@ namespace MvcCoreGiris.Controllers
         {
             //var kullan = TempData["ad"];
             var lns = (LuckyNumberService)HttpContext.RequestServices.GetService(typeof(LuckyNumberService));
-            ViewBag.SansliSayi = lns;
+            ViewBag.SansliSayi = lns.LuckyNumber;
             return View();
         }
 

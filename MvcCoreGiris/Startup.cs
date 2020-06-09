@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MvcCoreGiris.Interfaces;
 using MvcCoreGiris.Models;
 using MvcCoreGiris.Services;
 
@@ -34,6 +35,9 @@ namespace MvcCoreGiris
             services.AddSingleton<LuckyNumberService>();
             //services.AddScoped<LuckyNumberService>();
             //services.AddTransient<LuckyNumberService>();
+
+            services.AddScoped<IWeatherService, OpenWeatherMapService>();
+            //istek baþýna newle. IWeatherService gördüðün yerde WeatherComService kullan
         }
         //https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
